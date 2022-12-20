@@ -1,0 +1,15 @@
+[package]
+name = "openliberiamap"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+indexmap= { version = "1", features = ["serde-1"] }
+seed = "0.9"
+uuid = { version = "1", features = ["serde", "v4"] }
+leaflet = "0.2.2"
+serde = { version = "1.0", features = ["derive"] }
+wasm-bindgen = { version = "0.2", features = ["serde-serialize"] }
+web-sys = { version = "0.3", features = ["console"] }
