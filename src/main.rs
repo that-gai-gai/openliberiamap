@@ -41,6 +41,5 @@ fn view(model: &Model) -> Node<Msg> {
 
 
 fn main() {
-    App::start("app", init, update, view);
 }
 
