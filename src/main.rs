@@ -17,7 +17,7 @@ enum Msg {
 fn init(_: Url, _: &mut impl Orders<Msg>) -> Model {
     // Cannot initialize Leaflet until the map element has rendered.
 
-    let map_config = MapConfig { center: [6.42, 9.4], zoom: 10.0};
+    let map_config = MapConfig { center: [6.4, -10.4], zoom: 4.0};
     let js_map_config = JsValue::from_serde(&map_config).unwrap();
     let layer = leaflet::TileLayer::new("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", &JsValue::NULL);
     let map = leaflet::Map::new("map", &js_map_config);

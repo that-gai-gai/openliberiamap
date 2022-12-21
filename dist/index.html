@@ -4,10 +4,37 @@
         <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQo..." crossorigin="">
     </script>
     
-<link rel="preload" href="/openliberiamap-5f26f515092fd1be_bg.wasm" as="fetch" type="application/wasm" crossorigin="">
-<link rel="modulepreload" href="/openliberiamap-5f26f515092fd1be.js"></head>
+<link rel="preload" href="/openliberiamap-22fb5743c0699680_bg.wasm" as="fetch" type="application/wasm" crossorigin="">
+<link rel="modulepreload" href="/openliberiamap-22fb5743c0699680.js"></head>
     <body>
         <section id="map"></section>
         <section id="app">Loading ...  </section>        
     
-<script type="module">import init from '/openliberiamap-5f26f515092fd1be.js';init('/openliberiamap-5f26f515092fd1be_bg.wasm');</script></body></html>
+<script type="module">import init from '/openliberiamap-22fb5743c0699680.js';init('/openliberiamap-22fb5743c0699680_bg.wasm');</script><script>(function () {
+    var protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    var url = protocol + '//' + window.location.host + '/_trunk/ws';
+    var poll_interval = 5000;
+    var reload_upon_connect = () => {
+        window.setTimeout(
+            () => {
+                // when we successfully reconnect, we'll force a
+                // reload (since we presumably lost connection to
+                // trunk due to it being killed, so it will have
+                // rebuilt on restart)
+                var ws = new WebSocket(url);
+                ws.onopen = () => window.location.reload();
+                ws.onclose = reload_upon_connect;
+            },
+            poll_interval);
+    };
+
+    var ws = new WebSocket(url);
+    ws.onmessage = (ev) => {
+        const msg = JSON.parse(ev.data);
+        if (msg.reload) {
+            window.location.reload();
+        }
+    };
+    ws.onclose = reload_upon_connect;
+})()
+</script></body></html>

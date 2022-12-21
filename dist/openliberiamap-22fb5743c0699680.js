@@ -1008,7 +1008,7 @@ function initSync(module) {
 
 async function init(input) {
     if (typeof input === 'undefined') {
-        input = new URL('openliberiamap-5f26f515092fd1be_bg.wasm', import.meta.url);
+        input = new URL('openliberiamap-22fb5743c0699680_bg.wasm', import.meta.url);
     }
     const imports = getImports();
 

@@ -1,0 +1,21 @@
+on: push
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    container: thatgaigai/rusty-trunk:latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build
+        run: trunk build
+
+      - name: Deploy to GitHub Pages
+        if: success()
+        uses: crazy-max/ghaction-github-pages@v2
+        with:
+          build_dir: dist
+          fqdn: map.openliberiamap.xyz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
