@@ -10,6 +10,8 @@ indexmap= { version = "1", features = ["serde-1"] }
 seed = "0.9"
 uuid = { version = "1", features = ["serde", "v4"] }
 leaflet = "0.2.2"
+quick-xml = { version = "0.26", features = ["serialize"] }
 serde = { version = "1.0", features = ["derive"] }
+serde-wasm-bindgen = "0.4.5"
 wasm-bindgen = { version = "0.2", features = ["serde-serialize"] }
-web-sys = { version = "0.3", features = ["console"] }
+web-sys = { version = "0.3", features = ["console", "MutationObserver", "MutationObserverInit", "Node"] }
