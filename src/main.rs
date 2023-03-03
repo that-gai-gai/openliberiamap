@@ -1,6 +1,5 @@
 use seed::{prelude::*, *};
 use serde::{Serialize, Deserialize};
-// use leaflet::{Circle, LatLng, LatLngBounds, Map, Polygon, Polyline, Rectangle, TileLayer};
 
 #[derive(Serialize, Deserialize)]
 pub struct MapConfig {
@@ -8,14 +7,13 @@ pub struct MapConfig {
     pub zoom: f32,
 }
 
-
 type Model = i32;
 
 #[derive(Copy, Clone)]
 enum Msg {
     Increment,
 }
-
+// In Seed's functional UI
 fn init(_: Url, _: &mut impl Orders<Msg>) -> Model {
     let mut options = web_sys::MutationObserverInit::new();
     options.child_list(true);
@@ -31,35 +29,37 @@ fn init(_: Url, _: &mut impl Orders<Msg>) -> Model {
     Model::default()
 }
 
-fn init_map() {
-    let map_config = MapConfig { center: [6.4, -9.5], zoom: 7.0 };
+fn init_map() {   
+    let map_config = MapConfig { center: [6.4, -9.5], zoom: 7.0}; 
     let js_map_config = JsValue::from_serde(&map_config).unwrap();
-    let layer = leaflet::TileLayer::new("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", &JsValue::NULL);
+    let layer = leaflet::TileLayer::new(
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", &JsValue::NULL);
     let map = leaflet::Map::new("map", &js_map_config);
     layer.addTo(&map);
 }
 
-fn window() -> web_sys::Window {
-        web_sys::window().expect("Could not get browser window.")
-    }
-    
-fn document() -> web_sys::Document {
-        window().document().expect("Could not get browser document.")
 
+fn window() -> web_sys::Window {
+    web_sys::window().expect("Could not get browser window.")
 }
 
+fn document() -> web_sys::Document {
+    window().document().expect("Could not get browser document.")
+}
+
+//
 fn update(msg: Msg, model: &mut Model, _: &mut impl Orders<Msg>) {
     match msg {
-        Msg::Increment => *model += 1,  
+        Msg::Increment => *model += 1,
     }
 }
 
+//
 fn view(model: &Model) -> Node<Msg> {
     div![
         div![id!["map"]],
         "This is a counter: ",
         button![model, ev(Ev::Click, |_| Msg::Increment),],
-
     ]
 }
 
